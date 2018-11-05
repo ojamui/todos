@@ -34,11 +34,15 @@ Route::get('/api/todos', function() {
 });
 
 // Add/Update Single todo
-Route::post('/api/todos', function (Request $request){
-    return response()->json(['title' => $request->title]);
+Route::put('/api/todos', function (Request $request){
+    //     return response()->json(['title' => $request->title]);
+    if($request->has('id')){
+        return 'Should Update';
+    }
+    return 'Should Create';
 });
 
 // Delete Single todo
-Route::delete('/api/todos/{todo}', function(Request $request) {
-    return response()->json($request);
+Route::delete('/api/todos/{todo}', function($id) {
+    return $id;
 });
