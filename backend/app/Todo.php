@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    //Methods to access DB Should be here?
+    protected $guarded = ['id'];
+    protected $hidden = ['created_at','updated_at'];
 }
