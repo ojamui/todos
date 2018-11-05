@@ -1,0 +1,7 @@
+<div class="list-item {{if item.done 'done'}}">
+    {{!-- Make responsive, Checkboxes, Styles and Classes into CSS files --}}
+    <div {{action "toggleItemStatus" item.id}}>X</div>
+    {{item.id}}.
+    {{item.title}} 
+    <div {{action "deleteItem" item.id}}>DEL</div>
+</div>

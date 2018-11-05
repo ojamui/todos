@@ -1,0 +1,20 @@
+<div class="list-component">
+    <div class="list-component-title">
+        <div>
+            {{title}}
+        </div>
+        <div {{action "newItem"}}>
+            +
+        </div> 
+    </div>
+    <div class="list-component-items">
+        {{#each items as |item|}}
+            {{list-item item=item}}
+        {{/each}}
+    </div>
+    <div class="list-component-footer">
+        <div>todo: 1</div>
+        <div>done: 2</div>
+        <div>total: {{items.length}}</div>
+    </div>
+</div>
