@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 // Get All todos
-Route::get('/api/todos', function() {
+Route::get('/api/todos', function()
+{
     $mockList = [ // GET FROM DB
         [
             'id' => 123,
@@ -34,15 +35,20 @@ Route::get('/api/todos', function() {
 });
 
 // Add/Update Single todo
-Route::put('/api/todos', function (Request $request){
-    //     return response()->json(['title' => $request->title]);
-    if($request->has('id')){
-        return 'Should Update';
-    }
-    return 'Should Create';
-});
+Route::put('/api/todos', [
+    'uses' => 'TodoController@putTodos'
+]);
+// Route::put('/api/todos', function (Request $request)
+// {
+//     //     return response()->json(['title' => $request->title]);
+//     if($request->has('id')){  // MAYBE SEND DECISION TO CONTROLLER
+//         return 'Should Update';
+//     }
+//     return 'Should Create';
+// });
 
 // Delete Single todo
-Route::delete('/api/todos/{todo}', function($id) {
-    return $id;
-});
+// Route::delete('/api/todos/{todo}', function($id) 
+// {
+//     return $id;
+// });
