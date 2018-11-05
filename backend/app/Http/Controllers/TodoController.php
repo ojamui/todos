@@ -23,7 +23,7 @@ class TodoController extends Controller
 
         $title = $request->input('title');
 
-        if($request->has('id') ){
+        if($request->has('id')){
 
             $todo = Todo::find($request->input('id'));
             if($todo){
