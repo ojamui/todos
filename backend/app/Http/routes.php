@@ -25,6 +25,6 @@ Route::put('/api/todos', [
 ]);
 
 Route::delete('/api/todos/{todo}', [
-    'middleware' => 'cors'
+    'middleware' => 'cors',
     'uses' => 'TodoController@deleteTodos'
 ]);
