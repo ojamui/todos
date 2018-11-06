@@ -12,10 +12,10 @@ class TodoController extends Controller
     public function getTodos()
     {
         $todos = Todo::all();
-        return $todos->toJson(JSON_PRETTY_PRINT);
+        return response()->json(['todos' => $todos]);
     }
 
-    public function putTodos(Request $request)
+    public function putTodos(Request $request) //TODO : refactor to nicer more readable code, reuse more parts; error when id sent but not exists
     {
         $this->validate($request, [
             'title' => 'required|max:255'
