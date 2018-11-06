@@ -13,12 +13,18 @@
 
 use Illuminate\Http\Request;
 
-Route::put('/api/todos', [
-    'uses' => 'TodoController@putTodos'
-]);
+
 Route::get('/api/todos', [
+    'middleware' => 'cors',
     'uses' => 'TodoController@getTodos'
 ]);
-Route::delete('/api/todos/{todo}',[
+
+Route::put('/api/todos', [
+    'middleware' => 'cors',
+    'uses' => 'TodoController@putTodos'
+]);
+
+Route::delete('/api/todos/{todo}', [
+    'middleware' => 'cors'
     'uses' => 'TodoController@deleteTodos'
 ]);
