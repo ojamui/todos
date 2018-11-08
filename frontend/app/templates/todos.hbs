@@ -1,3 +1,28 @@
+<h2>TODOS route</h2>
+{{outlet}}
 <div class="todo-list">
-    {{list-component title="משימות" items=model}}
+    <div class="list-component">
+        <div class="list-component-title">
+            <div>
+                משימות
+            </div>
+            <div {{action "newTodo"}}>
+                +
+            </div> 
+        </div>
+        <div class="list-component-items">
+            {{#each todos as |todo|}}
+                <div class="list-item {{if todo.isDone 'done'}}">
+                    <div {{action "toggleTodoStatus" todo.id}}>X</div>
+                    {{todo.title}} 
+                    <div {{action "deleteTodo" todo.id}}>DEL</div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="list-component-footer">
+            <div>todo: 1</div>
+            <div>done: 2</div>
+            <div>total: {{todos.length}}</div>
+        </div>
+    </div>
 </div>

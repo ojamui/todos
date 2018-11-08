@@ -46,6 +46,10 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token,Authorization');
+header('Access-Control-Allow-Credentials: true');
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

@@ -1,0 +1,54 @@
+/* TODO LIST */
+.todo-list{
+    display: flex;
+    direction:rtl;
+    text-align: right;
+    justify-content: center;
+}
+/* list-component */
+.list-component{
+    display: flex; 
+    flex-direction:column; 
+    margin-top:5%; 
+    width:250px;
+
+}
+.list-component-title{
+    display: flex; 
+    flex-direction:row; 
+    justify-content: space-between;
+    padding:2%; 
+    background-image: linear-gradient(rgb(255, 166, 0), rgb(255, 145, 0));
+}
+.list-component-items{
+    display:flex; 
+    flex-direction:column;
+    height:200px;
+    overflow-y:scroll;
+}
+.list-component-items>div:nth-child(odd){
+    background-color: rgb(164, 196, 164);
+}
+.list-component-items>div:nth-child(even){
+    background-color: white;
+}
+.list-component-footer{
+    display:flex;
+    flex-direction:row; 
+    justify-content: space-between; 
+    padding:2%;
+}
+
+/* list-item */
+.list-item{
+    display: flex; 
+    flex-direction:row; 
+    justify-content:space-between;
+    padding: 2px 0 2px 0;
+}
+.list-item.done{
+    text-decoration: line-through;
+    color:grey;
+    opacity: 0.8;
+}
+  

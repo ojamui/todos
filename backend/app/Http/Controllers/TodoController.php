@@ -15,36 +15,38 @@ class TodoController extends Controller
         return response()->json(['todos' => $todos]);
     }
 
-    public function putTodos(Request $request) //TODO : refactor to nicer more readable code, reuse more parts; error when id sent but not exists
+    public function getSingleTodos($id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255'
-        ]);
+        $todo = Todo::find($id);
+        return response()->json(['todos' => $todo]);
 
-        $title = $request->input('title');
+    }
 
-        if($request->has('id')){
+    public function updateTodos(Request $request, $id) //TODO : refactor to nicer more readable code, reuse more parts; error when id sent but not exists
+    {
+        $data = $request->json()->all();
 
-            $todo = Todo::find($request->input('id'));
-            if($todo){
-                if($request->has('isDone') && $todo->isDone !== $request->input('isDone')){
-                    $todo->isDone = $request->input('isDone');
-                }
-                if($todo->title !== $request->input('title')){
-                    $todo->title = $request->input('title');
-                }
-            }
+        $todo = Todo::find($id);
 
-        } else {
-            $todo = new Todo();
-            $todo->title = $title;
-            $todo->isDone = false;
-        }
+        $todo->isDone = $data['todo']['isDone'];
+        $todo->title = $data['todo']['title'];
         
         $todo->save();
 
         return $this->getTodos();
 
+    }
+
+    public function addTodos(Request $request){
+
+        $data = $request->json()->all();
+
+        $todo = new Todo();
+        $todo->title = $data['todo']['title'];
+        $todo->isDone = False;
+        $todo->save();
+
+        return response()->json(['todos' => $todo]);
     }
     
     public function deleteTodos($id){
@@ -56,7 +58,6 @@ class TodoController extends Controller
         if($todo){
             $todo->delete();
         }
-
         return $this->getTodos();
     }
 

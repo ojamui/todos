@@ -19,9 +19,19 @@ Route::get('/api/todos', [
     'uses' => 'TodoController@getTodos'
 ]);
 
-Route::put('/api/todos', [
+Route::get('/api/todos/{todo}', [
     'middleware' => 'cors',
-    'uses' => 'TodoController@putTodos'
+    'uses' => 'TodoController@getSingleTodos'
+]);
+
+Route::post('/api/todos', [
+    'middleware' => 'cors',
+    'uses' => 'TodoController@addTodos'
+]);
+
+Route::put('/api/todos/{todo}', [
+    'middleware' => 'cors',
+    'uses' => 'TodoController@updateTodos'
 ]);
 
 Route::delete('/api/todos/{todo}', [

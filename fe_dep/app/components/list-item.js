@@ -9,11 +9,12 @@ export default Component.extend({
             alert('ITEM CLICKED: ' + itemId);
         },
         deleteItem(itemId){
-            store: Ember.inject.service(),
             console.log('Should delete item with id: ' + itemId);
-            store.findRecord('todo', itemId, { backgroundReload: false }).then(function(todo) {
+            this.get('store').findRecord('todo', itemId, { backgroundReload: false }).then(function(todo) {
                 todo.destroyRecord();
             });
+            // console.log(this.get('store').delete('todo',itemId));
+            // this.get('store').deleteRecord(itemId);
         }
     }
 });
