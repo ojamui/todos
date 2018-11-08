@@ -13,9 +13,20 @@
         <div class="list-component-items">
             {{#each todos as |todo|}}
                 <div class="list-item {{if todo.isDone 'done'}}">
-                    <div {{action "toggleTodoStatus" todo.id}}>X</div>
-                    {{todo.title}} 
-                    <div {{action "deleteTodo" todo.id}}>DEL</div>
+                    <div {{action "toggleTodoStatus" todo}}>X</div>
+                    {{#if todo.isEditing}}
+                        {{  input 
+                                autofocus="true" 
+                                insert-newline=(action "acceptTodoEdit" todo) 
+                                focus-out=(action "acceptTodoEdit" todo)
+                                value=todo.title
+                        }}
+                    {{else}}
+                        <div style="display: flex; flex:1; padding: 0 5px 0 5px;" {{action "toggleTodoEdit" todo}}>{{todo.title}}</div>
+                    {{/if}}
+                    <button disabled={{todo.isSaving}} {{ action 'deleteTodo' todo}}>
+                        DEL
+                    </button>
                 </div>
             {{/each}}
         </div>

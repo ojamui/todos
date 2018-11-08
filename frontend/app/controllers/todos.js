@@ -8,30 +8,34 @@ export default Controller.extend({
     todosTodo: computed('todos.[]','todos.@each.isDone', function() {
         return  this.get('todos').filterBy('isDone',false).get('length');
     }),
+    isEditing: false,
+
     actions: {
         newTodo: function(){
             let todo = this.store.createRecord('todo', {"title":"2asdadsn"});
             todo.save();
         },
-        toggleTodoStatus: function(id){
-            this.store.findRecord('todo', id).then((todo) => {
+        toggleTodoStatus: function(todo){
+            this.store.findRecord('todo', todo.id).then((todo) => {
                 let status = todo.get('isDone');
                 todo.set('isDone',!status);
                 todo.save();
             });
         },
-        editTodo: function(id){ 
-            // // alert('SHOULD EDIT ID: ' + id);
-            // this.store.findRecord('todos', id).then((todo) => {
-            //     // todo.get('title'); // => "Rails is Omakase"
-              
-            //     todo.set('isDone', !todo.get('isDone'));
-              
-            //     todo.save(); // => PATCH to '/posts/1'
-            //   });
+        toggleTodoEdit: function(todo){ 
+            let editing = todo.getWithDefault('isEditing', false);
+            todo.set('isEditing',!editing);
         },
-        deleteTodo: function(id){
-            this.store.findRecord('todo', id, { backgroundReload: false }).then( (todo) => {
+        acceptTodoEdit: function(todo){
+            let title = todo.get('title');
+            this.store.findRecord('todo', todo.id).then((todo) => {
+                todo.set('title',title);
+                todo.save();
+                todo.set('isEditing',false);
+            });
+        },
+        deleteTodo: function(todo){
+            this.store.findRecord('todo', todo.id, { backgroundReload: false }).then( (todo) => {
                 todo.destroyRecord();
             });
         },
