@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { set, computed } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
     todosDone: computed('todos.[]','todos.@each.isDone', function() {
@@ -10,7 +10,6 @@ export default Controller.extend({
     }),
     
     isAddingNew: false,
-
     actions: {
         toggleNewTodo: function(){
             this.set('isAddingNew',true);

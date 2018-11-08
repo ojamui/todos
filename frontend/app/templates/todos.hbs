@@ -1,28 +1,29 @@
 <h2>TODOS route</h2>
-{{outlet}}
-<div class="todo-list">
-    <div class="list-component">
-        <div class="list-component-title">
+<div class="todos-list-container">
+    <div class="todos-list">
+        <div class="todos-list-header">
             <div>
                 {{#if isAddingNew}}
                     {{  
-                        input 
-                        autofocus="true" 
+                        input
+                        autofocus="autofocus" 
                         action="newTodo"
                         placeholder="New Task"
                         value=title
                     }}
                 {{else}}
-                    משימות
+                    <div {{action "toggleNewTodo"}}>
+                        משימות
+                    </div>
                 {{/if}}
             </div>
             <div {{action "toggleNewTodo"}}>
                 +
             </div> 
         </div>
-        <div class="list-component-items">
+        <div class="todos-list-items">
             {{#each todos as |todo|}}
-                <div class="list-item {{if todo.isDone 'done'}}">
+                <div class="list-item">
                     <div>
                         {{
                             input 
@@ -34,21 +35,20 @@
                     {{#if todo.isEditing}}
                         {{  
                             input 
-                            autofocus="true" 
+                            autofocus="autofocus" 
                             insert-newline=(action "acceptTodoEdit" todo) 
                             focus-out=(action "acceptTodoEdit" todo)
                             value=todo.title 
                         }}
                     {{else}}
-                        <div style="display: flex; flex:1; padding: 0 5px 0 5px;" {{action "toggleTodoEdit" todo}}>{{todo.title}}</div>
+                        <div class="todo-title {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo}}>{{todo.title}}</div>
                     {{/if}}
-                    <button disabled={{todo.isSaving}} {{ action 'deleteTodo' todo}}>
-                        DEL
+                    <button class="x-close" disabled={{todo.isSaving}} {{ action 'deleteTodo' todo }}>
                     </button>
                 </div>
             {{/each}}
         </div>
-        <div class="list-component-footer">
+        <div class="todos-list-footer">
             <div>לסיום: {{ todosTodo }}</div>
             <div>הושלמו: {{ todosDone }}</div>
             <div>סה"כ: {{ todos.length }}</div>
