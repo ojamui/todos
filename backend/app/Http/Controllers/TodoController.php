@@ -19,7 +19,6 @@ class TodoController extends Controller
     {
         $todo = Todo::find($id);
         return response()->json(['todos' => $todo]);
-
     }
 
     public function updateTodos(Request $request, $id) //TODO : refactor to nicer more readable code, reuse more parts; error when id sent but not exists
@@ -28,13 +27,12 @@ class TodoController extends Controller
 
         $todo = Todo::find($id);
 
-        $todo->isDone = $data['todo']['isDone'];
         $todo->title = $data['todo']['title'];
+        $todo->isDone = $data['todo']['isDone'];
         
         $todo->save();
 
         return $this->getTodos();
-
     }
 
     public function addTodos(Request $request){
