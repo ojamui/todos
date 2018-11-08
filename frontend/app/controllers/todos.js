@@ -8,15 +8,21 @@ export default Controller.extend({
     todosTodo: computed('todos.[]','todos.@each.isDone', function() {
         return  this.get('todos').filterBy('isDone',false).get('length');
     }),
-    isEditing: false,
+    
+    isAddingNew: false,
 
     actions: {
+        toggleNewTodo: function(){
+            this.set('isAddingNew',true);
+        },
         newTodo: function(){
-            let todo = this.store.createRecord('todo', {"title":"2asdadsn"});
+            let todo = this.store.createRecord('todo', {"title":this.get('title')});
             todo.save();
+            this.set('isAddingNew',false);
+            this.set('title','');
         },
         toggleTodoStatus: function(todo){
-            this.store.findRecord('todo', todo.id).then((todo) => {
+            this.store.findRecord('todo',todo.id).then((todo) => {
                 let status = todo.get('isDone');
                 todo.set('isDone',!status);
                 todo.save();
