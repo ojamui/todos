@@ -48,7 +48,7 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'database' => 'D:\dev\buyme\backend\database\db.sqlite', //env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => '..\database\db.sqlite', //env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
         ],
 
