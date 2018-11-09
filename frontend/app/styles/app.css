@@ -1,3 +1,6 @@
+body{
+    font: 400 13.3333px Arial;
+}
 .todos-list-container{
     display:flex;
     justify-content: center;
@@ -30,7 +33,7 @@
     overflow-y:scroll;
 }
 .todos-list-items>div:nth-child(odd){
-    background-color: rgb(164, 196, 164);
+    background-color: #f3f6e3;
 }
 .todos-list-items>div:nth-child(even){
     background-color: white;
@@ -60,7 +63,8 @@
     flex-direction:row; 
     justify-content:space-between;
     padding: 2px 0 2px 0;
-    align-items: center
+    align-items: center;
+    border-top: solid black 1px;
 }
 .todo-title{
     display: flex;
@@ -71,6 +75,9 @@
     text-decoration: line-through;
     color:grey;
     opacity: 0.8;
+}
+.todo-title-edit{
+    text-decoration: underline;
 }
 
 button.x-close{
