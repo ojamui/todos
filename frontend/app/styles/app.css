@@ -22,8 +22,20 @@ body{
     display: flex; 
     flex-direction:row; 
     justify-content: space-between;
-    padding:2%; 
+    padding:2%;
+    height:25px;
+    line-height: 25px;
+    border-bottom: solid black 1px;
     background-image: linear-gradient(rgb(255, 166, 0), rgb(255, 145, 0));
+}
+.todos-header-text{
+    display: flex;
+    flex: 1 1 90%;
+}
+.todos-header-btn{
+    display: flex;
+    flex: 1 1 10%;
+    justify-content: center;
 }
 
 /* Todos Items */
@@ -64,7 +76,7 @@ body{
     justify-content:space-between;
     padding: 2px 0 2px 0;
     align-items: center;
-    border-top: solid black 1px;
+    border-bottom: solid black 1px;
 }
 .todo-title{
     display: flex;

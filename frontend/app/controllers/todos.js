@@ -14,10 +14,19 @@ export default Controller.extend({
         toggleNewTodo: function(){
             this.set('isAddingNew',true);
         },
-        newTodo: function(){
-            let todo = this.store.createRecord('todo', {"title":this.get('title')});
+        newTodo: function(chain){
+            console.log('chain is: ' + chain);
+            if(!chain){
+                this.set('isAddingNew',false);
+            }
+            
+            let title = this.get('title');
+            if (!title.trim()) { 
+                return; 
+            }
+
+            let todo = this.store.createRecord('todo', {"title":title});
             todo.save();
-            this.set('isAddingNew',false);
             this.set('title','');
         },
         toggleTodoStatus: function(todo){
