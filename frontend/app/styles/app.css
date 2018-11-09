@@ -92,3 +92,13 @@ button.x-close[disabled]{
 .x-close:hover{
     opacity:0.5;
 }
+
+
+
+/* General Overrides */
+input[type=text]{
+    background-color:initial;
+    outline: none;
+    border: none;
+    color:black;
+}

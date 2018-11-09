@@ -3,19 +3,28 @@
     <div class="todos-list">
         <div class="todos-list-header">
             <div>
-                {{#if isAddingNew}}
+                {{  
+                    input
+                    type="text"
+                    autofocus="autofocus" 
+                    enter="newTodo"
+                    placeholder="הוספת משימה חדשה..."
+                    value=title
+                }}
+                {{!-- {{#if isAddingNew}}
                     {{  
                         input
+                        type="text"
                         autofocus="autofocus" 
                         enter="newTodo"
-                        placeholder="New Task"
+                        placeholder="Add new task..."
                         value=title
                     }}
                 {{else}}
                     <div {{action "toggleNewTodo"}}>
                         משימות
                     </div>
-                {{/if}}
+                {{/if}} --}}
             </div>
             <div {{action "toggleNewTodo"}}>
                 +
@@ -38,7 +47,7 @@
                             autofocus="autofocus" 
                             enter=(action "acceptTodoEdit" todo)
                             placeholder=todo.title
-                            value=title 
+                            value=todo.title 
                         }}
                     {{else}}
                         <div class="todo-title {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo}}>{{todo.title}}</div>
