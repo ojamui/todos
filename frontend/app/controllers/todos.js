@@ -32,11 +32,14 @@ export default Controller.extend({
             todo.set('isEditing',!editing);
         },
         acceptTodoEdit: function(todo){
-            let title = todo.get('title');
+            let title = this.get('title');
+            console.log('title to save: ' + title);
             this.store.findRecord('todo', todo.id).then((todo) => {
+                console.log('old title: ' + todo.get('title'));
                 todo.set('title',title);
                 todo.save();
                 todo.set('isEditing',false);
+                this.set('title','');
             });
         },
         deleteTodo: function(todo){
