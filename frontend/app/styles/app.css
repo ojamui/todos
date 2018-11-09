@@ -25,6 +25,10 @@ input[type=text]{
     position: relative;
 }
 
+.editing .todos-checkbox{
+    opacity: 0.2!important;;
+}
+
 .todos-checkbox:active, .todos-checkbox:checked:active {
 	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
@@ -143,7 +147,7 @@ button.x-close[disabled]{
 .x-close:after{
     display: inline-block;
     content: "\00d7"; /* This will render the 'X' */
-    padding: 0 5px 0 5px;
+    /* padding: 0 5px 0 5px; */
     zoom:1.5;
 }
 .x-close:hover{
