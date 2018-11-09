@@ -17,14 +17,18 @@ export default Controller.extend({
         },
 
         newTodo: function(chain){
-            console.log('chain is: ' + chain);
             if(!chain){
                 this.set('isAddingNew',false);
             }
 
             let title = this.get('title');
-            if(!title){return;}
-            if(!title.trim()){return;}
+            
+            if(!title){
+                return;
+            }
+            if(!title.trim()){
+                return;
+            }
 
             let todo = this.store.createRecord('todo', {"title":title});
             todo.save();
@@ -49,9 +53,15 @@ export default Controller.extend({
             if(!todo.get('isEditing')){
                 return;
             }
+
             todo.set('isEditing',false);
             let oTitle = this.get('oldTodoTitle');
             let nTitle = todo.get('title');
+
+            if(Ember.isEmpty(nTitle)){ 
+                todo.set('title',oTitle);
+                return;
+            }
             if(nTitle === oTitle){
                 return;
             }
