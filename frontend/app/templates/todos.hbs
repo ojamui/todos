@@ -32,6 +32,23 @@
         </div>
         <div class="todos-list-items">
             {{#each todos as |todo|}}
+                <div class="list-item {{if todo.isEditing 'editing'}}">
+                    {{input type="checkbox" disabled=todo.isEditing checked=todo.isDone change=(action "toggleTodoStatus" todo) class="toggle"}}
+                    {{#if todo.isEditing}}
+                        {{  
+                            edit-todo 
+                            class="edit" 
+                            value=todo.title 
+                            focus-out=(action "acceptTodoEdit" todo)
+                            insert-newline=(action "acceptTodoEdit" todo)
+                        }}
+                    {{else}}
+                        <div class="todo-title  {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo on="doubleClick"}}>{{todo.title}}</div>
+                    {{/if}}
+                    <button class="x-close" disabled={{todo.isSaving}} {{action 'deleteTodo' todo}}></button>
+                </div>
+            {{/each}}
+            {{!-- {{#each todos as |todo|}}
                 <div class="list-item">
                     <div>
                         {{
@@ -55,7 +72,7 @@
                     <button class="x-close" disabled={{todo.isSaving}} {{ action 'deleteTodo' todo }}>
                     </button>
                 </div>
-            {{/each}}
+            {{/each}} --}}
         </div>
         <div class="todos-list-footer">
             <div>לסיום: {{ todosTodo }}</div>
