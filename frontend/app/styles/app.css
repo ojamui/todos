@@ -130,7 +130,8 @@ input[type=text]{
     color:grey;
     opacity: 0.8;
 }
-.todo-title-edit{
+.editing .todo-title{
+    font-style: italic;
     text-decoration: underline;
 }
 

@@ -33,7 +33,7 @@
                     {{#if todo.isEditing}}
                         {{  
                             todo-input 
-                            classNames="todo-title-edit"
+                            classNames="todo-title"
                             value=todo.title
                             focus-out=(action "acceptTodoEdit" todo)
                             insert-newline=(action "acceptTodoEdit" todo)
