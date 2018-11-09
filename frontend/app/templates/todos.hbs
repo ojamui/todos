@@ -29,7 +29,7 @@
         <div class="todos-list-items">
             {{#each todos as |todo|}}
                 <div class="list-item {{if todo.isEditing 'editing'}}">
-                    {{input type="checkbox" disabled=todo.isEditing checked=todo.isDone change=(action "toggleTodoStatus" todo) class="toggle"}}
+                    {{input type="checkbox" disabled=todo.isEditing checked=todo.isDone change=(action "toggleTodoStatus" todo) class="todos-checkbox"}}
                     {{#if todo.isEditing}}
                         {{  
                             todo-input 
