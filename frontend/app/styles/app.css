@@ -1,4 +1,9 @@
 /* General Overrides */
+input::-ms-clear {
+    display: none;
+    height: 0;
+    width: 0;
+}
 body{
     font: 400 13.3333px Arial;
 }
