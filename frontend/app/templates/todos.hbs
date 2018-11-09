@@ -6,7 +6,7 @@
                 {{#if isAddingNew}}
                     {{  
                         todo-input 
-                        classNames="todo-title-edit"
+                        classNames="editing todo-title"
                         placeholder="הוספת משימה חדשה..."
                         value=title
                         focus-out=(action "newTodo" 0)
@@ -40,7 +40,10 @@
                             insert-newline=(action "acceptTodoEdit" todo)
                         }}
                     {{else}}
-                        <div class="todo-title  {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo on="click"}}>{{todo.title}}</div>
+                        {{!-- <div class="todo-title  {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo on="click"}}>{{todo.title}}</div> --}}
+                        <div  class="todo-title  {{if todo.isDone 'done'}}"  {{action "toggleTodoEdit" todo on="click"}}>
+                            {{ todo-title title=todo.title }}
+                        </div>
                     {{/if}}
                     <button class="x-close" disabled={{todo.isSaving}} {{action 'deleteTodo' todo}}></button>
                 </div>

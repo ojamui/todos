@@ -19,7 +19,8 @@ input[type=text]{
 	background-color: #f0f0f0;
 	border: 1px solid #cacece;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
-	padding: 9px;
+    padding: 9px;
+    margin: 0 0 0 10px;
 	border-radius: 3px;
 	display: inline-block;
     position: relative;
@@ -94,8 +95,6 @@ input[type=text]{
 }
 
 
-
-
 /* Todos Footer */
 .todos-list-footer{
     display:flex;
@@ -103,12 +102,6 @@ input[type=text]{
     justify-content: space-between; 
     padding:2%;
 }
-
-
-
-
-
-
 
 
 /* list-item */
@@ -122,10 +115,15 @@ input[type=text]{
     border-bottom: solid black 1px;
 }
 .todo-title{
-    display: flex;
-    flex:1;
-    padding: 0 5px 0 5px; 
+    width: auto;
+    margin-left:auto;
+    padding-right: 2px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .todo-title.done{
     text-decoration: line-through;
     color:grey;
@@ -134,6 +132,8 @@ input[type=text]{
 .editing .todo-title{
     font-style: italic;
     text-decoration: underline;
+    display: flex;
+    flex: 1;
 }
 
 button.x-close{
@@ -160,3 +160,33 @@ button.x-close[disabled]{
    color: #B33A3A;
 }
 
+.overflowing:hover{
+    -moz-transform:translateX(100%);
+    -webkit-transform:translateX(100%);	
+    transform:translateX(100%);
+    -moz-animation: scroll-left 6s linear infinite;
+    -webkit-animation: scroll-left 6s linear infinite;
+    animation: scroll-left 6s linear infinite;
+}
+
+/* Move it (define the animation) */
+@-moz-keyframes scroll-left {
+    0% { -moz-transform: translateX(0%); }
+    100% { -moz-transform: translateX(300%); }
+}
+@-webkit-keyframes scroll-left {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(300%); }
+}
+@keyframes scroll-left {
+    0% { 
+        -moz-transform: translateX(0%); /* Browser bug fix */
+        -webkit-transform: translateX(0%); /* Browser bug fix */
+        transform: translateX(0%); 
+    }
+    100% { 
+        -moz-transform: translateX(300%); /* Browser bug fix */
+        -webkit-transform: translateX(300%); /* Browser bug fix */
+        transform: translateX(300%); 
+    }
+}
