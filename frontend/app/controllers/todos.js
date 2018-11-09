@@ -11,24 +11,26 @@ export default Controller.extend({
     
     isAddingNew: false,
     actions: {
+
         toggleNewTodo: function(){
             this.set('isAddingNew',true);
         },
+
         newTodo: function(chain){
             console.log('chain is: ' + chain);
             if(!chain){
                 this.set('isAddingNew',false);
             }
-            
+
             let title = this.get('title');
-            if (!title.trim()) { 
-                return; 
-            }
+            if(!title){return;}
+            if(!title.trim()){return;}
 
             let todo = this.store.createRecord('todo', {"title":title});
             todo.save();
             this.set('title','');
         },
+
         toggleTodoStatus: function(todo){
             this.store.findRecord('todo',todo.id).then((todo) => {
                 let status = todo.get('isDone');
@@ -36,27 +38,27 @@ export default Controller.extend({
                 todo.save();
             });
         },
+
         toggleTodoEdit: function(todo){ 
             let editing = todo.getWithDefault('isEditing', false);
             this.set('oldTodoTitle',todo.get('title'));
             todo.set('isEditing',!editing);
         },
+
         acceptTodoEdit: function(todo){
 
             todo.set('isEditing',false);
-
             let oTitle = this.get('oldTodoTitle');
             let nTitle = todo.get('title');
-
             if(nTitle === oTitle){
                 return;
             }
-
             this.store.findRecord('todo', todo.id).then((todo) => {
                 todo.set('title',nTitle);
                 todo.save();
             });
         },
+        
         deleteTodo: function(todo){
             this.store.findRecord('todo', todo.id, { backgroundReload: false }).then( (todo) => {
                 todo.destroyRecord();
