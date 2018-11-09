@@ -38,17 +38,23 @@ export default Controller.extend({
         },
         toggleTodoEdit: function(todo){ 
             let editing = todo.getWithDefault('isEditing', false);
+            this.set('oldTodoTitle',todo.get('title'));
             todo.set('isEditing',!editing);
         },
         acceptTodoEdit: function(todo){
-            let title = todo.get('title');
-            console.log('title to save: ' + title);
+
+            todo.set('isEditing',false);
+
+            let oTitle = this.get('oldTodoTitle');
+            let nTitle = todo.get('title');
+
+            if(nTitle === oTitle){
+                return;
+            }
+
             this.store.findRecord('todo', todo.id).then((todo) => {
-                console.log('old title: ' + todo.get('title'));
-                todo.set('title',title);
+                todo.set('title',nTitle);
                 todo.save();
-                todo.set('isEditing',false);
-                this.set('title','');
             });
         },
         deleteTodo: function(todo){
