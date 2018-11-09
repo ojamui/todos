@@ -27,9 +27,10 @@
             </div> 
         </div>
         <div class="todos-list-items">
-            {{#each todos as |todo|}}
+            {{#each todos as |todo index|}}
                 <div class="list-item {{if todo.isEditing 'editing'}}">
                     {{input type="checkbox" disabled=todo.isEditing checked=todo.isDone change=(action "toggleTodoStatus" todo) class="todos-checkbox"}}
+                    {{plus-one index}}.
                     {{#if todo.isEditing}}
                         {{  
                             todo-input 
