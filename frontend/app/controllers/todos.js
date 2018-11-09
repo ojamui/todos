@@ -46,7 +46,9 @@ export default Controller.extend({
         },
 
         acceptTodoEdit: function(todo){
-
+            if(!todo.get('isEditing')){
+                return;
+            }
             todo.set('isEditing',false);
             let oTitle = this.get('oldTodoTitle');
             let nTitle = todo.get('title');
@@ -58,7 +60,7 @@ export default Controller.extend({
                 todo.save();
             });
         },
-        
+
         deleteTodo: function(todo){
             this.store.findRecord('todo', todo.id, { backgroundReload: false }).then( (todo) => {
                 todo.destroyRecord();
