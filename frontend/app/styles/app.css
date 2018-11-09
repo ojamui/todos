@@ -117,6 +117,7 @@ input[type=text]{
     flex-direction:row; 
     justify-content:space-between;
     padding: 2px 0 2px 0;
+    height:30px;
     align-items: center;
     border-bottom: solid black 1px;
 }
@@ -136,6 +137,7 @@ input[type=text]{
 }
 
 button.x-close{
+    opacity:0.5;
     border: none;
     outline: none;
     background: none;
@@ -147,11 +149,14 @@ button.x-close[disabled]{
 }
 .x-close:after{
     display: inline-block;
-    content: "\00d7"; /* This will render the 'X' */
-    /* padding: 0 5px 0 5px; */
-    zoom:1.5;
+    content: "\00d7";
+        zoom:1.5;
 }
 .x-close:hover{
-    opacity:0.5;
+    opacity:1;
+}
+.x-close:active{
+   opacity: 1;
+   color: #B33A3A;
 }
 

@@ -22,14 +22,11 @@ export default Controller.extend({
             }
 
             let title = this.get('title');
-            
-            if(!title){
-                return;
-            }
-            if(!title.trim()){
-                return;
-            }
 
+            if(!title || !title.trim()){
+                return;
+            }
+            
             let todo = this.store.createRecord('todo', {"title":title});
             todo.save();
             this.set('title','');
