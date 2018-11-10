@@ -75,10 +75,30 @@ input[type=text]{
     display: flex;
     flex: 1 1 90%;
 }
-.todos-header-btn{
+
+.todos-add-btn{
+    width: 24px;
+    height: 24px;
+    border: solid 1px black;
     display: flex;
-    flex: 1 1 10%;
+    flex: 1;
+    line-height: 20px;
     justify-content: center;
+    align-items: center;
+}
+.todos-add-btn:after{
+    content: "\002b";
+    border: solid 1px black;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+}
+.todos-add-btn.editing{
+    background-color:lightgrey;
+    
 }
 
 /* Todos Items */

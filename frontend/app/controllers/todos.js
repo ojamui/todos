@@ -31,7 +31,7 @@ export default Controller.extend({
             todo.save();
             this.set('title','');
         },
-
+        
         toggleTodoStatus: function(todo){
             this.store.findRecord('todo',todo.id, {reload: true} ).then((todo) => {
                 let status = todo.get('isDone');

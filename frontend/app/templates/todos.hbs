@@ -18,11 +18,11 @@
                     </div>
                 {{/if}}
             </div>
-            <div class="todos-header-btn" {{action "toggleNewTodo" on="click"}}>
+            <div {{action "toggleNewTodo" on="click"}}>
                 {{#if isAddingNew}}
-                    <span {{action "newTodo" 0}}>+</span>
+                    <div class="todos-add-btn editing" {{action "newTodo" 0}}></div>
                 {{else}}
-                    <span {{action "toggleNewTodo"}}>+</span>
+                    <div class="todos-add-btn" {{action "toggleNewTodo"}}></div>
                 {{/if}}
             </div> 
         </div>
