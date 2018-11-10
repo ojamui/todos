@@ -5,13 +5,12 @@ export default DS.RESTAdapter.extend({
     namespace: 'api',
     handleResponse (status, headers, payload, requestData) {
 
-        if(status === 400 && payload.errors){
-            console.log(status + ': CAUGHT: ', payload.errors);
+        // if(status === 400 && payload.errors){
+        //     console.log(status + ': CAUGHT: ', payload.errors);
 
-          return new DS.InvalidError(payload.errors);
-        }
-        if(status === 405 && payload.errors){
-            console.log(status + ': CAUGHT: ', payload.errors);
+        //   return new DS.InvalidError(payload.errors);
+        // }
+        if(status !== 200 && payload.errors){
             return new DS.Errors(payload.errors);
         }
         

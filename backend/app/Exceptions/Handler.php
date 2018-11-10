@@ -10,6 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response as HttpExceptionResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -51,33 +52,26 @@ class Handler extends ExceptionHandler
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
     
-        if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) { //CATCH ERRORS
-            return $this->error(405, 'Method Not Allowed');
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException) { //CATCH ERRORS
+            $code = isset(HttpExceptionResponse::$statusTexts[$e->getStatusCode()]) ? HttpExceptionResponse::$statusTexts[$e->getStatusCode()] : NULL;
+            return $this->error($e->getStatusCode(), $code);
         }
 
         return parent::render($request, $e);
     }
 
-    public static function error($code = 400, $message = null) //ERROR RESPONSE
+    public static function error($code = 400, $message ) //ERROR RESPONSE
     {
-        // check if $message is object and transforms it into an array
-        if (is_object($message)) { $message = $message->toArray(); }
-
-        switch ($code) {
-            case 405:
-                $code_message = 'Method Not Allowed';
-                break;
-            default:
-                $code_message = 'error_occured';
-                break;
+        if( NULL === $message ){
+            $message = "Unkonwn Error";
         }
+        if (is_object($message)) { $message = $message->toArray(); }
 
         $data = array(
                 'code'    => $code,
-                'title'   => $code_message
+                'message'   => $message
         );
 
-        // return an error
         return response()->json(['errors' => array($data)],$code);
     }
 }
