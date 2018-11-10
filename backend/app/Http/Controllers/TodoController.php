@@ -27,11 +27,13 @@ class TodoController extends Controller
 
         $todo = Todo::find($id);
 
+        if(!$todo){
+            abort(404);
+        }
+        
         $todo->title = $data['todo']['title'];
         $todo->isDone = $data['todo']['isDone'];
-        
         $todo->save();
-
         return $this->getTodos();
     }
 

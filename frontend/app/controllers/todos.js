@@ -20,9 +20,10 @@ export default Controller.extend({
             (err) => {
                 console.log('save(): Error',err);
                 if(isNew){
-                    this.store.unloadRecord(todo);
+                    if(!todo.inFlight){
+                        this.store.unloadRecord(todo);
+                    }
                 } else {
-                    console.log('EDIT failed: ' + todo.get('id') + ' ; ' + todo.get('title') + ' ; ' + todo.get('isDone'));
                     todo.rollbackAttributes();
                 }
                 this.sendToError(err);
@@ -31,7 +32,8 @@ export default Controller.extend({
     },
     sendToError: function(error){
         let errors = this.get("errorMessages");
-        errors.set("errorMessage", error[0].message);
+        let message = Ember.isArray(error) && error[0].message ? error[0].message : "Unknown Error";
+        errors.set("errorMessage", message);
         return this.get('target').send('error', error);
     },
     actions: {

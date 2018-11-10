@@ -10,7 +10,8 @@ export default Route.extend({
     actions: {
         error(error, transition) {
                 let errors = this.get("errorMessages");
-                errors.set("errorMessage", error[0].message);
+                let message = Ember.isArray(error) && error[0].message ? error[0].message : "Unknown Error";
+                errors.set("errorMessage", message);
                 return this.transitionTo('error');
           }
     },

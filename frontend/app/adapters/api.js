@@ -8,6 +8,8 @@ export default DS.RESTAdapter.extend({
             return new DS.Errors([{message: "Internal Server Error"}]);
         } else if(status !== 200 && payload.errors){
             return new DS.Errors(payload.errors);
+        } else if(status !== 200){
+            return new DS.Errors([{message: "Unknown Server Error"}]);
         }
         return this._super(status, headers, payload, requestData);
     }
