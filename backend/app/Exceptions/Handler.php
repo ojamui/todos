@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\FatalErrorExceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response as HttpExceptionResponse;
 
@@ -56,6 +57,11 @@ class Handler extends ExceptionHandler
             $code = isset(HttpExceptionResponse::$statusTexts[$e->getStatusCode()]) ? HttpExceptionResponse::$statusTexts[$e->getStatusCode()] : NULL;
             return $this->error($e->getStatusCode(), $code);
         }
+
+        // if ($e instanceof \Symfony\Component\HttpKernel\Exception\FatalErrorExceptions) {
+        //     $code = isset(HttpExceptionResponse::$statusTexts[$e->getStatusCode()]) ? HttpExceptionResponse::$statusTexts[$e->getStatusCode()] : NULL;
+        //     return $this->error($e->getStatusCode(), $code);
+        // }
 
         return parent::render($request, $e);
     }

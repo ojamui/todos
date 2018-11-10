@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+    errorMessages: Ember.inject.service(),
     todosDone: computed('todos.[]','todos.@each.isDone', function() {
         return  this.get('todos').filterBy('isDone',true).get('length');
     }),
@@ -10,12 +11,33 @@ export default Controller.extend({
     }),
     
     isAddingNew: false,
+    saveAndHandle: function(todo, isNew){
+        todo.save().then(
+            (res) => {
+                console.log('save(): Success',res);
+            }
+        ).catch(
+            (err) => {
+                console.log('save(): Error',err);
+                if(isNew){
+                    this.store.unloadRecord(todo);
+                } else {
+                    console.log('EDIT failed: ' + todo.get('id') + ' ; ' + todo.get('title') + ' ; ' + todo.get('isDone'));
+                    todo.rollbackAttributes();
+                }
+                this.sendToError(err);
+            }
+        )
+    },
+    sendToError: function(error){
+        let errors = this.get("errorMessages");
+        errors.set("errorMessage", error[0].message);
+        return this.get('target').send('error', error);
+    },
     actions: {
-
         toggleNewTodo: function(){
             this.set('isAddingNew',true);
         },
-
         newTodo: function(chain){
             if(!chain){
                 this.set('isAddingNew',false);
@@ -28,24 +50,23 @@ export default Controller.extend({
             }
             
             let todo = this.store.createRecord('todo', {"title":title});
-            todo.save();
             this.set('title','');
+            this.saveAndHandle(todo,true);
         },
-        
         toggleTodoStatus: function(todo){
-            this.store.findRecord('todo',todo.id, {reload: true} ).then((todo) => {
+            this.store.findRecord('todo',todo.id, { backgroundReload: true } ).then((todo) => {
                 let status = todo.get('isDone');
                 todo.set('isDone',!status);
-                todo.save();
-            });
+                this.saveAndHandle(todo);
+            }).catch( (err) => { 
+                this.sendToError(err) 
+            } );
         },
-
         toggleTodoEdit: function(todo){ 
             let editing = todo.getWithDefault('isEditing', false);
             this.set('oldTodoTitle',todo.get('title'));
             todo.set('isEditing',!editing);
         },
-
         acceptTodoEdit: function(todo){
             if(!todo.get('isEditing')){
                 return;
@@ -64,15 +85,31 @@ export default Controller.extend({
             }
             this.store.findRecord('todo', todo.id).then((todo) => {
                 todo.set('title',nTitle);
-                todo.save();
-            });
+                this.saveAndHandle(todo);
+            }).catch( (err) => { 
+                this.sendToError(err) 
+            } );
         },
-
         deleteTodo: function(todo){
-            this.store.findRecord('todo', todo.id, { backgroundReload: false }).then( (todo) => {
-                todo.destroyRecord();
-            });
+            this.store.findRecord('todo', todo.id, { reload:true, backgroundReload: true }).then( (todo) => {
+                todo.destroyRecord().then(
+                    (res) => {
+                        console.log('destroyRecord(): Success',res);
+                    }
+                ).catch(
+                    (err) => {
+                        console.log('destroyRecord(): Error',err);
+                        this.sendToError(err);
+                    }
+                )
+            }).catch( (err) => { 
+                this.sendToError(err);
+            } );
         },
-    },
-    
+        handleError: function(error){
+            let errors = this.get("errorMessages");
+            errors.set("errorMessage", error[0].message);
+            return this.transitionTo('error');
+        },
+    }
 });
