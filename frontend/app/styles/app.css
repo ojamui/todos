@@ -27,7 +27,7 @@ input[type=text]{
 }
 
 .editing .todos-checkbox{
-    opacity: 0.2!important;
+    opacity: 0!important;
 }
 
 .todos-checkbox:active, .todos-checkbox:checked:active {
