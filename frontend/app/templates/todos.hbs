@@ -18,7 +18,7 @@
                     </div>
                 {{/if}}
             </div>
-            <div {{action "toggleNewTodo" on="click"}}>
+            <div class="todos-header-add" {{action "toggleNewTodo" on="click"}}>
                 {{#if isAddingNew}}
                     <div class="todos-add-btn editing" {{action "newTodo" 0}}></div>
                 {{else}}
@@ -28,7 +28,7 @@
         </div>
         <div class="todos-list-items">
             {{#each todos as |todo index|}}
-                <div class="list-item {{if todo.isEditing 'editing'}}">
+                <div class="list-item {{if todo.isDone 'done'}} {{if todo.isEditing 'editing'}}">
                     {{input type="checkbox" disabled=todo.isEditing checked=todo.isDone change=(action "toggleTodoStatus" todo) class="todos-checkbox"}}
                     {{plus-one index}}.
                     {{#if todo.isEditing}}
@@ -41,7 +41,7 @@
                         }}
                     {{else}}
                         {{!-- <div class="todo-title  {{if todo.isDone 'done'}}" {{action "toggleTodoEdit" todo on="click"}}>{{todo.title}}</div> --}}
-                        <div  class="todo-title  {{if todo.isDone 'done'}}"  {{action "toggleTodoEdit" todo on="click"}}>
+                        <div  class="todo-title"  {{action "toggleTodoEdit" todo on="click"}}>
                             {{ todo-title title=todo.title }}
                         </div>
                     {{/if}}
